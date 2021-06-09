@@ -16,6 +16,12 @@ client.createTodo({
     console.log("recieved from server CreateTodo: "+ JSON.stringify(res))
 })
 
-client.readTodos({}, (err, res) => {
-    console.log("recieved from server ReadTodo: "+ JSON.stringify(res))
+// client.readTodos({}, (err, res) => {
+//     console.log("recieved from server ReadTodo: "+ JSON.stringify(res))
+// })
+
+const call = client.readTodosStream()
+call.on('data', (item) => {
+    console.log('recevied item from server readTodoStream: '+ JSON.stringify(item))
 })
+call.on('end', (e) => console.log("server done Streaming!"))
